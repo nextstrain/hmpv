@@ -61,7 +61,7 @@ rule filter:
         sequences_per_group = config["filter"]["sequences_per_group"],
         min_date = config["filter"]["min_date"],
         strain_id = config.get("strain_id_field", "strain"),
-        subtype = lambda wc: wc.subtype.upper(),
+        subtype = lambda wc: f'{config["filter"]["clades"].get(wc.subtype)}',
         build = lambda wc: wc.build,
         min_coverage = lambda w: f'{config["filter"]["min_coverage"].get(w.build, 10000)}',
         subsample_max_sequences = lambda w: config["filter"]["subsample_max_sequences"].get(w.build, 10000),
@@ -71,7 +71,7 @@ rule filter:
             --sequences {input.sequences} \
             --metadata {input.metadata} \
             --metadata-id-columns {params.strain_id} \
-            --query "subtypes == '{params.subtype}' & {params.build}_coverage > {params.min_coverage}"\
+            --query "subtypes == {params.subtype} & {params.build}_coverage > {params.min_coverage}"\
             --output-sequences {output.sequences} \
             --output-metadata {output.metadata} \
             --group-by {params.group_by} \

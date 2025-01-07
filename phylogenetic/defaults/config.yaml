@@ -11,7 +11,7 @@ build: ["genome", "G", "F"]
 strain_id_field: "accession"
 display_strain_field: "strain"
 
-subtypes: ['a', 'b']
+subtypes: ['a', 'b', 'all']
 
 filter:
   group_by: "country year month"
@@ -31,6 +31,11 @@ filter:
     genome: 1000
     G: 1000
     F: 1000
+
+  clades:
+    a: 'A'
+    b: 'B'
+    all: 'subtypes'
 
 files:
   color_schemes: "defaults/colors.tsv"
