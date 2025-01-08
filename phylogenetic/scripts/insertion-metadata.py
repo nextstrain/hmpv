@@ -7,7 +7,7 @@ def add_insertions(subtype, build, metadata, alignedinsertions, metadata_inserti
     alignedinsertionsdf = pd.read_csv(alignedinsertions, index_col="strain")
     metadatadf = pd.read_csv(metadata, sep = '\t', index_col="accession")
 
-    if subtype == "a" or subtype == "all" and build != "F":
+    if (subtype == "a" or subtype == "all") and build != "F":
 
         if build =="genome":
             min_position = 6247
