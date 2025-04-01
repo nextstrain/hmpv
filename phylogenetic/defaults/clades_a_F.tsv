@@ -10,31 +10,17 @@ A2	nuc	156	G
 A2	nuc	216	T
 A2	nuc	705	G
 A2	nuc	1038	A
-A2a	clade	A2
-A2b	clade	A2
-A2b	nuc	657	A
-A2b	nuc	759	G
-A2b	nuc	252	T
-A2b	nuc	402	T
-A2b1	clade	A2b
-A2b1	nuc	432	T
-A2b1	nuc	489	G
-A2b1	nuc	1611	G
-A2b2	clade	A2b
-A2b2	nuc	357	G
-A2b2	nuc	907	C
-A2b2	nuc	21	T
-A2.1	clade	A2
-A2.2	clade	A2
-A2.2	nuc	657	A
-A2.2	nuc	759	G
-A2.2	nuc	252	T
-A2.2	nuc	402	T
-A2.2.1	clade	A2.2
-A2.2.1	nuc	432	T
-A2.2.1	nuc	489	G
-A2.2.1	nuc	1611	G
-A2.2.2	clade	A2.2
-A2.2.2	nuc	357	G
-A2.2.2	nuc	907	C
-A2.2.2	nuc	21	T
+A2a, A2.1	clade	A2
+A2b, A2.2	clade	A2
+A2b, A2.2	nuc	657	A
+A2b, A2.2	nuc	759	G
+A2b, A2.2	nuc	252	T
+A2b, A2.2	nuc	402	T
+A2b1, A2.2.1	clade	A2b, A2.2
+A2b1, A2.2.1	nuc	432	T
+A2b1, A2.2.1	nuc	489	G
+A2b1, A2.2.1	nuc	1611	G
+A2b2, A2.2.2	clade	A2b, A2.2
+A2b2, A2.2.2	nuc	357	G
+A2b2, A2.2.2	nuc	907	C
+A2b2, A2.2.2	nuc	21	T
