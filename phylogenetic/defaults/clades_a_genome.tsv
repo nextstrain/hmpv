@@ -27,4 +27,20 @@ A2b2	clade	A2b
 A2b2	nuc	249	C
 A2b2	nuc	930	A
 A2b2	nuc	13294	G
-
+A2.1	clade	A2
+A2.1	nuc	2275	C
+A2.1	G	182	T
+A2.1	nuc	6970	G
+A2.2	clade	A2
+A2.2	nuc	264	G
+A2.2	nuc	314	C
+A2.2	nuc	7812	C
+A2.2.1	clade	A2.2
+A2.2.1	nuc	3390	G
+A2.2.1	nuc	11819	G
+A2.2.1	L	1916	K
+A2.2.1	nuc	879	C
+A2.2.2	clade	A2.2
+A2.2.2	nuc	249	C
+A2.2.2	nuc	930	A
+A2.2.2	nuc	13294	G

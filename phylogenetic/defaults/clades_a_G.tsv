@@ -25,4 +25,17 @@ A2b2	clade	A2b
 A2b2	nuc	375	T
 A2b2	nuc	699	A
 A2b2	G	40	A
-
+A2.1	clade	A2
+A2.2	clade	A2
+A2.2	nuc	120	T
+A2.2	nuc	691	T
+A2.2	nuc	693	G
+A2.2	G	231	L
+A2.2.1	clade	A2.2
+A2.2.1	nuc	313	T
+A2.2.1	nuc	322	T
+A2.2.1	G	105	Y
+A2.2.2	clade	A2.2
+A2.2.2	nuc	375	T
+A2.2.2	nuc	699	A
+A2.2.2	G	40	A
