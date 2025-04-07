@@ -29,8 +29,8 @@
       "type": "categorical"
     },
     {
-      "key": "clade",
-      "title": "Clade",
+      "key": "clades",
+      "title": "Clades",
       "type": "categorical"
     },
     {
@@ -42,6 +42,11 @@
       "key": "insertion",
       "title": ">30bp insertion in G gene",
       "type": "boolean"
+    },
+    {
+      "key": "old_nomenclature",
+      "title": "Old Clade Names",
+      "type": "categorical"
     }
   ],
   "geo_resolutions": [
@@ -51,7 +56,8 @@
   "display_defaults": {
     "map_triplicate": true,
     "color_by" : "clade_membership",
-    "transmission_lines": false
+    "transmission_lines": false,
+    "branch_label": "Clades"
   },
   "filters": [
     "country",

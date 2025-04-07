@@ -1,0 +1,26 @@
+clade	gene	site	alt
+A1	nuc	168	G
+A1	nuc	245	G
+A1	nuc	402	A
+A1	nuc	754	A
+A1	nuc	1536	C
+A1	F	82	R
+A2	nuc	148	T
+A2	nuc	156	G
+A2	nuc	216	T
+A2	nuc	705	G
+A2	nuc	1038	A
+A2.1	clade	A2
+A2.2	clade	A2
+A2.2	nuc	657	A
+A2.2	nuc	759	G
+A2.2	nuc	252	T
+A2.2	nuc	402	T
+A2.2.1	clade	A2.2
+A2.2.1	nuc	432	T
+A2.2.1	nuc	489	G
+A2.2.1	nuc	1611	G
+A2.2.2	clade	A2.2
+A2.2.2	nuc	357	G
+A2.2.2	nuc	907	C
+A2.2.2	nuc	21	T
