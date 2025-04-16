@@ -36,6 +36,11 @@
       "type": "categorical"
     },
     {
+      "key": "legacy_clade",
+      "title": "Legacy clade",
+      "type": "categorical"
+    },
+    {
       "key": "insertion6738",
       "title": ">30bp insertion in G gene",
       "type": "boolean"
@@ -53,5 +58,16 @@
     "country",
     "region",
     "author"
-  ]
+  ],
+  "extensions": {
+    "nextclade": {
+      "clade_node_attrs":[
+        {
+          "name": "legacy_clade",
+          "displayName": "Alt. clade",
+          "description": "Clade nomenclature using alternating letters and numbers as in A2b2."
+        }
+      ]
+    }
+  }
 }

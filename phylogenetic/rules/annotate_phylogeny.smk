@@ -71,6 +71,9 @@ rule clades:
         aa_muts = rules.translate.output.node_data,
         nuc_muts = rules.ancestral.output.node_data,
         clades = "defaults/clades_{subtype}_{build}.tsv",
+    params:
+        membership_name = "old_nomenclature",
+        label = "old_nomenclature"
     output:
         clade_data = "results/{subtype}/{build}/clades.json"
     shell:
@@ -78,7 +81,30 @@ rule clades:
         augur clades --tree {input.tree} \
             --mutations {input.nuc_muts} {input.aa_muts} \
             --clades {input.clades} \
-            --output-node-data {output.clade_data}
+            --output-node-data {output.clade_data} \
+            --membership-name {params.membership_name} \
+            --label-name {params.label}
+        """
+
+rule clades2:
+    input:
+        tree = rules.refine.output.tree,
+        aa_muts = rules.translate.output.node_data,
+        nuc_muts = rules.ancestral.output.node_data,
+        clades = "defaults/clades2_{subtype}_{build}.tsv",
+    params:
+        membership_name = "clades",
+        label = "Clades"
+    output:
+        clade_data = "results/{subtype}/{build}/clades2.json"
+    shell:
+        """
+        augur clades --tree {input.tree} \
+            --mutations {input.nuc_muts} {input.aa_muts} \
+            --clades {input.clades} \
+            --output-node-data {output.clade_data} \
+            --membership-name {params.membership_name} \
+            --label-name {params.label}
         """
 
 rule traits:
