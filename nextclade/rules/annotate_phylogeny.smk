@@ -57,3 +57,20 @@ rule clades:
             --clades {input.clades} \
             --output-node-data {output.clade_data}
         """
+
+rule clades_legacy:
+    input:
+        tree = "output/tree.nwk",
+        aa_muts = "output/aa_muts.json",
+        nuc_muts = rules.ancestral.output.node_data,
+        clades = "resources/clades_legacy.tsv",
+    output:
+        clade_data = "output/clades_legacy.json"
+    shell:
+        """
+        augur clades --tree {input.tree} \
+            --mutations {input.nuc_muts} {input.aa_muts} \
+            --clades {input.clades} \
+            --membership-name "legacy_clade" --label-name "legacy_clade" \
+            --output-node-data {output.clade_data}
+        """

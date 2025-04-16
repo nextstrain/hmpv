@@ -5,6 +5,7 @@ rule export:
         mutations="output/muts.json",
         branch_lengths="output/branch_lengths.json",
         clades="output/clades.json",
+        clades_legacy="output/clades_legacy.json",
         auspice_config="resources/auspice_config.json",
     output:
         auspice="output/auspice.json",
@@ -13,8 +14,9 @@ rule export:
         augur export v2 \
             --tree {input.tree} \
             --metadata {input.metadata} \
+            --metadata-id-columns accession \
             --auspice-config {input.auspice_config} \
-            --node-data {input.mutations} {input.branch_lengths} {input.clades} \
+            --node-data {input.mutations} {input.branch_lengths} {input.clades} {input.clades_legacy} \
             --output {output.auspice}
         """
 
@@ -30,7 +32,7 @@ rule subsample_example_sequences:
     shell:
        """
         # Exclude short and outlier sequences from all sequences
-        cat {input.tree_strains} {input.short_sequences} > {output.exclude} 
+        cat {input.tree_strains} {input.short_sequences} > {output.exclude}
         seqkit grep -v -f {output.exclude} {input.all_sequences} \
         | seqkit grep -v -f {input.short_sequences} \
         | seqkit sample -n 100 -s 42 > {output.example_sequences}
