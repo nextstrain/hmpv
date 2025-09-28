@@ -28,9 +28,9 @@ filter:
     F: 0.8
 
   subsample_max_sequences:
-    genome: 1000
-    G: 1000
-    F: 1000
+    genome: 2000
+    G: 3000
+    F: 3000
 
   clades:
     a: "'A'"
