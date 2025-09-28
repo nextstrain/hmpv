@@ -4,8 +4,8 @@ rule download:
         metadata =  "data/metadata.tsv.gz",
         sequences = "data/sequences.fasta.xz"
     params:
-        metadata_url = "http://data.nextstrain.org/files/workflows/hmpv/metadata.tsv.gz",
-        sequence_url = "http://data.nextstrain.org/files/workflows/hmpv/sequences.fasta.xz"
+        metadata_url = "http://data.nextstrain.org/files/workflows/hmpv/metadata_with_restricted.tsv.gz",
+        sequence_url = "http://data.nextstrain.org/files/workflows/hmpv/sequences_with_restricted.fasta.xz"
     shell:
         """
         curl -fsSL --compressed {params.metadata_url:q} --output {output.metadata}

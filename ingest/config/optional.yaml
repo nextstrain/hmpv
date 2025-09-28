@@ -9,11 +9,15 @@ upload:
     files_to_upload: [
       'ncbi.ndjson',
       'extended_metadata.tsv',
-      'sequences.fasta'
+      'sequences.fasta',
+      'extended_metadata_open.tsv',
+      'sequences_open.fasta'
     ]
     # Remote file names for the files to upload, must be in the same order as local files above
     remote_file_names: [
       'ncbi.ndjson.xz',
+      'metadata_with_restricted.tsv.gz',
+      'sequences_with_restricted.fasta.xz',
       'metadata.tsv.gz',
       'sequences.fasta.xz'
     ]

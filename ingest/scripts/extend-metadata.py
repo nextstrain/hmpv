@@ -47,9 +47,9 @@ if __name__=="__main__":
     clades = pd.read_csv(args.nextclade, index_col=NEXTCLADE_JOIN_COLUMN_NAME,
                          sep='\t', low_memory=False, na_filter = False) \
             .rename(columns=column_map)
-    
+
     # Add column with only clade A and B
-    clades["subtypes"] = clades["clade"].apply(lambda x: "A" if x in ["A1","A2","A2a","A2b1","A2b2"] else ("B" if x in ["B1", "B2"] else None))
+    clades["subtypes"] = clades["clade"].apply(lambda x: "A" if x.startswith("A") else ("B" if x.startswith("B") else None))
 
     # Concatenate on columns
     result = pd.merge(
