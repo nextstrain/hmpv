@@ -35,8 +35,8 @@ rule concat_geolocation_rules:
 
 rule curate:
     input:
-        sequences_ndjson = "data/ncbi.ndjson",
-        all_geolocation_rules = "data/all-geolocation-rules.tsv",
+        sequences_ndjson = "data/sequences.ndjson",
+        geolocation_rules=config["curate"]["local_geolocation_rules"],
         annotations = config['curate']['annotations'],
     output:
         metadata = "data/curated_metadata.tsv",
@@ -44,18 +44,19 @@ rule curate:
     log:
         "logs/curate.txt"
     params:
-        field_map = config['curate']['field_map'],
+        field_map = config['curate']['ppx_field_map'],
         strain_regex = config['curate']['strain_regex'],
         strain_backup_fields = config['curate']['strain_backup_fields'],
         date_fields = config['curate']['date_fields'],
         expected_date_formats = config['curate']['expected_date_formats'],
-        genbank_location_field=config["curate"]["genbank_location_field"],
         articles = config['curate']['titlecase']['articles'],
         abbreviations = config['curate']['titlecase']['abbreviations'],
         titlecase_fields = config['curate']['titlecase']['fields'],
         authors_field = config['curate']['authors_field'],
         authors_default_value = config['curate']['authors_default_value'],
         abbr_authors_field = config['curate']['abbr_authors_field'],
+        ppx_division_field = config['curate']['ppx_division_field'],
+        location_field = config['curate']['location_field'],
         annotations_id = config['curate']['annotations_id'],
         id_field = config['curate']['id_field'],
         sequence_field = config['curate']['sequence_field']
@@ -71,8 +72,6 @@ rule curate:
             | augur curate format-dates \
                 --date-fields {params.date_fields} \
                 --expected-date-formats {params.expected_date_formats} \
-            | augur curate parse-genbank-location \
-                --location-field {params.genbank_location_field} \
             | augur curate titlecase \
                 --titlecase-fields {params.titlecase_fields} \
                 --articles {params.articles} \
@@ -81,8 +80,12 @@ rule curate:
                 --authors-field {params.authors_field} \
                 --default-value {params.authors_default_value} \
                 --abbr-authors-field {params.abbr_authors_field} \
+            | ./bin/parse-ppx-division \
+                --division-field {params.ppx_division_field:q} \
+                --location-field {params.location_field:q} \
             | augur curate apply-geolocation-rules \
-                --geolocation-rules {input.all_geolocation_rules} \
+                --geolocation-rules {input.geolocation_rules} \
+            | python ./bin/curate-urls.py \
             | augur curate apply-record-annotations \
                 --annotations {input.annotations} \
                 --id-field {params.annotations_id} \
@@ -133,4 +136,22 @@ rule extend_metadata:
                                        --id-field accession \
                                        --nextclade {input.nextclade} \
                                        --output {output.metadata}
+        """
+
+
+rule extract_open_data:
+    input:
+        metadata = "data/metadata.tsv",
+        sequences = "data/sequences.fasta"
+    output:
+        metadata = "data/metadata_open.tsv",
+        sequences = "data/sequences_open.fasta"
+    shell:
+        """
+        augur filter --metadata {input.metadata} \
+                     --sequences {input.sequences} \
+                     --metadata-id-columns accession \
+                     --exclude-where "dataUseTerms=RESTRICTED" \
+                     --output-metadata {output.metadata} \
+                     --output-sequences {output.sequences}
         """

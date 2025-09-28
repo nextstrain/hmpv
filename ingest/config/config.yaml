@@ -1,13 +1,32 @@
 # Sources of sequences to include in the ingest run
-sources: ['genbank']
+sources: ['ppx']
 
 ncbi_taxon_id: "162145"
+
+ppx_fetch:
+  seqs: https://lapis.pathoplexus.org/hmpv/sample/unalignedNucleotideSequences?versionStatus=LATEST_VERSION
+  meta: https://lapis.pathoplexus.org/hmpv/sample/details?dataFormat=csv&versionStatus=LATEST_VERSION
 
 # Params for the curate rule
 curate:
   # Fields to rename.
   # This is the first step in the pipeline, so any references to field names
   # in the configs below should use the new field names
+  ppx_field_map: ['sampleCollectionDate=date',
+                  'displayName=strain',
+                  'earliestReleaseDate=date_submitted',
+                  'accessionVersion=PPX_accession',
+                  'insdcAccessionFull=INSDC_accession',
+                  'geoLocCountry=country',
+                  'geoLocAdmin1=division',
+                  'geoLocAdmin2=location',
+                  'hostNameCommon=host',
+                  'insdcRawReadsAccession=sra_accession',
+                  'dataUseTermsRestrictedUntil=restrictedUntil',
+                  'dataUseTermsUrl=dataUseTerms__url',
+                  'authorAffiliations=institution',]
+  ppx_division_field: 'division'
+  location_field: 'location'
   field_map: ['collected=date', 'submitted=date_submitted', 'genbank_accession=accession']
   # Standardized strain name regex
   # Currently accepts any characters because we do not have a clear standard for strain names
@@ -69,3 +88,92 @@ curate:
     'authors',
     'institution',
   ]
+  ppx_metadata_columns: [
+    'strain',
+    'date',
+    'accession', # unversioned PPX accession
+    'PPX_accession',
+    'PPX_accession__url',
+    'INSDC_accession',
+    'INSDC_accession__url',
+    'region',
+    'country',
+    'division',
+    'location',
+    'host',
+    'date_submitted',
+    'sra_accession',
+    'authors',
+    'institution',
+    'dataUseTerms',
+    'dataUseTerms__url',
+    'restrictedUntil',
+  ]
+
+ppx_metadata_fields: # Used to create the URL to download PPX metadata
+ - "accessionVersion"
+ - "accession"
+ - "version"
+ - "submitter"
+ - "groupName"
+ - "submittedDate"
+ - "releasedDate"
+ - "dataUseTerms"
+ - "dataUseTermsRestrictedUntil"
+ - "dataUseTermsUrl"
+ - "assemblyReferenceGenomeAccession"
+ - "authorAffiliations"
+ - "authors"
+ - "bioprojectAccession"
+ - "biosampleAccession"
+ - "completeness"
+ - "displayName"
+ - "earliestReleaseDate"
+ - "frameShifts"
+ - "geoLocAdmin1"
+ - "geoLocAdmin2"
+ - "geoLocCity"
+ - "geoLocCountry"
+ - "geoLocLatitude"
+ - "geoLocLongitude"
+ - "geoLocSite"
+ - "hostAge"
+ - "hostAgeBin"
+ - "hostDisease"
+ - "hostGender"
+ - "hostHealthOutcome"
+ - "hostHealthState"
+ - "hostNameCommon"
+ - "hostOriginCountry"
+ - "hostVaccinationStatus"
+ - "insdcAccessionBase"
+ - "insdcAccessionFull"
+ - "insdcRawReadsAccession"
+ - "insdcVersion"
+ - "isLabHost"
+ - "length"
+ - "lineage"
+ - "ncbiReleaseDate"
+ - "ncbiSourceDb"
+ - "ncbiSubmitterCountry"
+ - "ncbiUpdateDate"
+ - "ncbiVirusName"
+ - "ncbiVirusTaxId"
+ - "purposeOfSampling"
+ - "purposeOfSequencing"
+ - "qualityControlDetails"
+ - "qualityControlDetermination"
+ - "qualityControlIssues"
+ - "qualityControlMethodName"
+ - "qualityControlMethodVersion"
+ - "sampleCollectionDate"
+ - "sampleCollectionDateRangeLower"
+ - "sampleCollectionDateRangeUpper"
+ - "sampleType"
+ - "totalAmbiguousNucs"
+ - "totalDeletedNucs"
+ - "totalFrameShifts"
+ - "totalInsertedNucs"
+ - "totalSnps"
+ - "totalUnknownNucs"
+ - "travelHistory"
