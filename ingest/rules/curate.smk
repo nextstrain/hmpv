@@ -114,7 +114,7 @@ rule nextclade:
     output:
         nextclade = "data/nextclade.tsv"
     params:
-        output_columns = "seqName clade qc.overallScore qc.overallStatus alignmentScore  alignmentStart  alignmentEnd  coverage dynamic"
+        output_columns = "seqName clade qc.overallScore qc.overallStatus alignmentScore  alignmentStart  alignmentEnd  coverage cdsCoverage dynamic"
     threads: 8
     shell:
         """
@@ -132,10 +132,10 @@ rule extend_metadata:
         metadata = "data/extended_metadata.tsv"
     shell:
         """
-        python3 scripts/extend-metadata.py --metadata {input.metadata} \
-                                       --id-field accession \
-                                       --nextclade {input.nextclade} \
-                                       --output {output.metadata}
+        python3 bin/extend-metadata --metadata {input.metadata} \
+                                    --id-field accession \
+                                    --nextclade {input.nextclade} \
+                                    --output {output.metadata}
         """
 
 
