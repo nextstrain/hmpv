@@ -141,10 +141,10 @@ rule extend_metadata:
 
 rule extract_open_data:
     input:
-        metadata = "data/metadata.tsv",
+        metadata = "data/extended_metadata.tsv",
         sequences = "data/sequences.fasta"
     output:
-        metadata = "data/metadata_open.tsv",
+        metadata = "data/extended_metadata_open.tsv",
         sequences = "data/sequences_open.fasta"
     shell:
         """
