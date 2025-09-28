@@ -1,8 +1,6 @@
-from Bio import SeqIO
-import numpy as np
+import argparse
+import sys
 import pandas as pd
-from Bio import SeqIO
-from collections import defaultdict
 
 NEXTCLADE_JOIN_COLUMN_NAME = 'seqName'
 VALUE_MISSING_DATA = '?'
@@ -11,28 +9,9 @@ column_map = {
     "clade": "clade",
     "coverage": "genome_coverage",
 }
-coordinates = {'F':[3052, 4671],'G':[6247,6957]}
-
-def coverage(target, total):
-    if total[0]>target[1] or total[1]<target[0]:
-        # no overlap
-        return 0
-    elif total[0]<=target[0] and total[1]>=target[1]:
-        # total overlap
-        return 1
-    elif total[0]>target[0] and total[1]<target[1]:
-        # total contained in target
-        return (total[1]-total[0])/(target[1]-target[0])
-    elif total[0]>target[0] and total[1]>target[1]:
-        # overlap with total to the right of target
-        return (target[1]-total[0])/(target[1]-target[0])
-    else:
-        # overlap with total to the left of target
-        return (total[1]-target[0])/(target[1]-target[0])
 
 
 if __name__=="__main__":
-    import argparse, sys
     parser = argparse.ArgumentParser()
     parser.add_argument("--metadata")
     parser.add_argument("--nextclade")
@@ -49,7 +28,7 @@ if __name__=="__main__":
             .rename(columns=column_map)
 
     # Add column with only clade A and B
-    clades["subtypes"] = clades["clade"].apply(lambda x: "A" if x.startswith("A") else ("B" if x.startswith("B") else None))
+    clades["subtypes"] = clades["clade"].apply(lambda x: x[0] if x and x[0] in ['A', 'B'] else VALUE_MISSING_DATA)
 
     # Concatenate on columns
     result = pd.merge(
@@ -59,13 +38,10 @@ if __name__=="__main__":
         how='left'
     )
 
-    for gene in coordinates:
+    for gene in ['G', 'F']:
         def get_coverage(d):
-            try:
-                return coverage(coordinates[gene], [int(d.alignmentStart), int(d.alignmentEnd)])
-            except:
-                print('missing alignment for ',d.name)
-                return np.nan
+            cov_dict = {k:float(v) for k,v in (x.split(":") for x in d['cdsCoverage'].split(",") if ":" in x)}
+            return cov_dict.get(gene, 0.0)
 
         result[f"{gene}_coverage"] = result.apply(get_coverage, axis=1)
 
