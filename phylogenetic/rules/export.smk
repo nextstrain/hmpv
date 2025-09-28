@@ -52,6 +52,7 @@ rule export:
         colors = rules.colors.output.colors,
         clades = rules.clades.output.clade_data,
         clades2 = rules.clades2.output.clade_data,
+        description = "defaults/description.md",
         auspice_config = "defaults/auspice_config.json",
     output:
         auspice_json = "results/{subtype}/{build}/raw_hmpv.json"
@@ -66,6 +67,7 @@ rule export:
             --node-data {input.branch_lengths} {input.traits} {input.nt_muts} {input.aa_muts} {input.clades2} {input.clades} \
             --colors {input.colors} \
             --auspice-config {input.auspice_config} \
+            --description {input.description} \
             --include-root-sequence-inline \
             --output {output.auspice_json}
         """
