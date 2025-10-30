@@ -32,7 +32,6 @@ def add_insertions(subtype, build, metadata, alignedinsertions, metadata_inserti
             has_insertion = any(len(str(row[col])) > 30 for col in column_with_insertion)
             if has_insertion:
                 index_with_insertion.append(index)
-            print(index_with_insertion)
         metadatadf['insertion'] = metadatadf.index.isin(index_with_insertion)
         metadatadf.to_csv(metadata_insertion, sep='\t', index= "accession")
 
@@ -52,4 +51,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     add_insertions(args.subtype, args.build, args.metadata, args.aligned_insertions, args.metadata_insertion)
-
