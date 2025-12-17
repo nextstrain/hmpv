@@ -25,6 +25,13 @@ on:
         description: 'Specific container image to use for phylogenetic workflow (will override the default of "nextstrain build")'
         required: false
         type: string
+      trial_name:
+        description: |
+          Trial name for deploying builds.
+          If not set, builds will overwrite existing builds at s3://nextstrain-data/hmpv*
+          If set, builds will be deployed to s3://nextstrain-staging/hmpv_trials_<trial_name>_*
+        required: false
+        type: string
 
 jobs:
   check-new-data:
@@ -90,11 +97,19 @@ jobs:
       runtime: docker
       env: |
         NEXTSTRAIN_DOCKER_IMAGE: ${{ inputs.image }}
+        TRIAL_NAME: ${{ inputs.trial_name }}
       run: |
+        declare -a config
+
+        if [[ "$TRIAL_NAME" ]]; then
+          config+=("deploy_url=s3://nextstrain-staging/hmpv_trials_${TRIAL_NAME}_")
+        fi
+
         nextstrain build \
           phylogenetic \
             deploy \
-            --configfile defaults/config.yaml
+            --configfile defaults/config.yaml \
+            --config "${config[@]}"
       # Specifying artifact name to differentiate ingest build outputs from
       # the phylogenetic build outputs
       artifact-name: phylogenetic-build-output
