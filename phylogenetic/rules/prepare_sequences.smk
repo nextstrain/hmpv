@@ -52,7 +52,8 @@ rule filter:
     """
     input:
         sequences = "data/sequences.fasta",
-        metadata = "data/metadata.tsv"
+        metadata = "data/metadata.tsv",
+        exclude = config["files"]["exclude"],
     output:
         sequences = "results/{subtype}/{build}/filtered.fasta",
         metadata = "results/{subtype}/{build}/metadata.tsv",
@@ -76,7 +77,8 @@ rule filter:
             --output-metadata {output.metadata} \
             --group-by {params.group_by} \
             --subsample-max-sequences {params.subsample_max_sequences} \
-            --min-date {params.min_date}
+            --min-date {params.min_date} \
+            --exclude {input.exclude}
         """
 
 rule align:

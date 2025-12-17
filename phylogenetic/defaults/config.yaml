@@ -38,6 +38,7 @@ filter:
     all: 'subtypes'
 
 files:
+  exclude: "defaults/exclude.txt"
   color_schemes: "defaults/colors.tsv"
   auspice_config: "defaults/auspice_config.json"
 
