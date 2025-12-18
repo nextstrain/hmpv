@@ -38,6 +38,7 @@ filter:
     all: 'subtypes'
 
 files:
+  exclude: "defaults/exclude.txt"
   color_schemes: "defaults/colors.tsv"
   auspice_config: "defaults/auspice_config.json"
 
@@ -45,6 +46,21 @@ refine:
   coalescent: "opt"
   date_inference: "marginal"
   clock_filter_iqd: 4
+  # Estimated clock rates from successful hmpv/a builds as of 2025-11-05:
+  # https://nextstrain.org/hmpv/a/genome@2025-11-05?l=clock
+  clock_rate:
+    a:
+      genome: 0.000833
+      G: 0.00278
+      F: 0.000763
+    b:
+      genome: 0.000833
+      G: 0.00278
+      F: 0.000763
+    all:
+      genome: 0.000833
+      G: 0.00278
+      F: 0.000763
 
 ancestral:
   inference: "joint"

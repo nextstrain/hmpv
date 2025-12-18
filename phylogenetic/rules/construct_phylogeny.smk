@@ -31,6 +31,22 @@ rule tree:
             --output {output.tree}
         """
 
+def _clock_rate_params(wildcards):
+    """
+    Generate the clock rate parameters for augur refine based on
+    wildcard subtype and build values are in the config file
+    """
+    clock_rate = (config['refine']
+        .get('clock_rate', {})
+        .get(wildcards.subtype, {})
+        .get(wildcards.build, None))
+
+    if clock_rate is not None:
+        return f'--clock-rate {clock_rate!r}'
+    else:
+        return ""
+
+
 rule refine:
     """
     Refining tree
@@ -50,6 +66,7 @@ rule refine:
         coalescent = config["refine"]["coalescent"],
         date_inference = config["refine"]["date_inference"],
         clock_filter_iqd = config["refine"]["clock_filter_iqd"],
+        clock_rate = _clock_rate_params,
         strain_id = config.get("strain_id_field", "strain"),
 
     shell:
@@ -65,5 +82,6 @@ rule refine:
             --coalescent {params.coalescent} \
             --date-confidence \
             --date-inference {params.date_inference} \
+            {params.clock_rate} \
             --clock-filter-iqd {params.clock_filter_iqd} 
         """
