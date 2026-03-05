@@ -56,7 +56,7 @@
     "frameShifts": {
       "enabled": true,
       "scoreWeight": 10,
-      "ignoreFrameShifts": [
+      "ignoredFrameShifts": [
         {
           "codonRange": {
             "begin": 206,
@@ -80,7 +80,7 @@
     "reference accession": "NC_039199",
     "reference name": "hMPV/00-1"
   },
-  "geneOrderPreference": [
+  "cdsOrderPreference": [
     "N",
     "P",
     "M",
