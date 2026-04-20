@@ -21,5 +21,5 @@ rule upload_to_s3:
         cloudfront_domain = config["upload"].get("s3", {}).get("cloudfront_domain", "")
     shell:
         """
-        ./vendored/upload-to-s3 --quiet {input:q} {params.s3_dst:q}/{wildcards.remote_file_name:q} {params.cloudfront_domain}
+        ./vendored/scripts/upload-to-s3 --quiet {input:q} {params.s3_dst:q}/{wildcards.remote_file_name:q} {params.cloudfront_domain}
         """
